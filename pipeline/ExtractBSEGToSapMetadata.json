@@ -1,0 +1,70 @@
+{
+	"name": "ExtractBSEGToSapMetadata",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"rfcTableOptions": "",
+						"customRfcReadTableFunctionModule": "",
+						"rfcTableFields": "MANDT, BUKRS, BELNR, GJAHR, BUZEI, SPGRV, SPGRQ, STCEG, EGBLD, EGLLD, RSTGR, RYACQ, RPACQ, RDIFF, RDIF2, PRCTR, XHKOM, VNAME, RECID, EGRUP, VPTNR, VERTT, VERTN, VBEWA, DEPOT, TXJCD, IMKEY, DABRZ, POPTS, FIPOS, KSTRG, NPLNR, AUFPL, APLZL, PROJK, PAOBJNR, PASUBNR, SPGRS, SPGRC, BTYPE, ETYPE, XEGDR, LNRAN, HRKFT, DMBE2, DMBE3, DMB21, DMB22, DMB23, DMB31, DMB32, DMB33, MWST2, MWST3, NAVH2, NAVH3, SKNT2, SKNT3, BDIF3, RDIF3, HWMET, GLUPM, XRAGL, UZAWE, LOKKT, FISTL, GEBER, STBUK, TXBH2, TXBH3, PPRCT, XREF1, XREF2, KBLNR, KBLPOS, STTAX, FKBER, OBZEI, XNEGP, RFZEI, CCBTC, KKBER, EMPFB, XREF3, DTWS1, DTWS2, DTWS3, DTWS4, GRICD, GRIRG, GITYP, XPYPR, KIDNO, ABSBT, IDXSP, LINFV, KONTT, KONTL, TXDAT, AGZEI, PYCUR, PYAMT, BUPLA, SECCO, LSTAR, CESSION_KZ, PRZNR, PPDIFF, PPDIF2, PPDIF3, PENLC1, PENLC2, PENLC3, PENFC, PENDAYS, PENRC, GRANT_NBR, SCTAX, FKBER_LONG, GMVKZ, SRTYPE, INTRENO, MEASURE, AUGGJ, PPA_EX_IND, DOCLN, SEGMENT, PSEGMENT, PFKBER, HKTID, KSTAR, XLGCLR, TAXPS, PAYS_PROV, PAYS_TRAN, MNDID, XFRGE_BSEG, SQUAN, ACROBJTYPE, ACROBJ_ID, ACRSOBJ_ID, ACRITMTYPE, VALOBJTYPE, VALOBJ_ID, VALSOBJ_ID, RE_BUKRS, RE_ACCOUNT, PGEBER, PGRANT_NBR, BUDGET_PD, PBUDGET_PD, J_1TPBUPL, PEROP_BEG, PEROP_END, FASTPAY, IGNR_IVREF, FMFGUS_KEY, FMXDOCNR, FMXYEAR, FMXDOCLN, FMXZEKKN, PRODPER, GST_PART, PLC_SUP, HSN_SAC, IRN, RECRF, INWARD_NO, INWARD_DT, GROUND_NO, GROUND_DT, GROUND_TYP, PYMTKEY",
+						"partitionOption": "PartitionOnCalendarYear",
+						"partitionSettings": {
+							"partitionColumnName": "GJAHR",
+							"partitionUpperBound": "2016",
+							"partitionLowerBound": "2016",
+							"maxPartitionsNumber": 2000
+						},
+						"sapDataColumnDelimiter": ""
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table dbo.BSEG",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_ywr",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "azrsqlsapmetdata_BSEG",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T04:20:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

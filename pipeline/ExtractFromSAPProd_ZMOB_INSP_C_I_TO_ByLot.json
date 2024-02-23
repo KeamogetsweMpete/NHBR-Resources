@@ -1,0 +1,85 @@
+{
+	"name": "ExtractFromSAPProd_ZMOB_INSP_C_I_TO_ByLot",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_697",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "ZMOB_INSP_C_I"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.ZMOB_INSP_C_I"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"rfcTableOptions": "PRUEFLOS_KEY = '770000000005'",
+						"customRfcReadTableFunctionModule": "",
+						"rfcTableFields": "",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ZMOB_INSP_C_I",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "blbstrg_ZMOB_INSP_C_I_ByLot",
+						"type": "DatasetReference",
+						"parameters": {
+							"DestFileName": "Siqhamo"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"v_max_partition_number": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,39 @@
+{
+	"name": "df_companydetails",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "landingCompanyDetails",
+						"type": "DatasetReference"
+					},
+					"name": "landingCompanyDetails"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "conformCompanyDetails",
+						"type": "DatasetReference"
+					},
+					"name": "sinkCompantDetails"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> landingCompanyDetails",
+				"landingCompanyDetails sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['CompnayDetails'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkCompantDetails"
+			]
+		}
+	}
+}

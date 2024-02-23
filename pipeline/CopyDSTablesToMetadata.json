@@ -1,0 +1,4969 @@
+{
+	"name": "CopyDSTablesToMetadata",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_zz0",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_zz0",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "ds.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false,
+								"translator": {
+									"value": "@item().copyActivity.translator",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_zz0",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_zz0",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "AspNetUsers"
+						},
+						"destination": {
+							"table": "AspNetUsers"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmailConfirmed",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "EmailConfirmed",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "PasswordHash",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "PasswordHash",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SecurityStamp",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "SecurityStamp",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PhoneNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "PhoneNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PhoneNumberConfirmed",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "PhoneNumberConfirmed",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "TwoFactorEnabled",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "TwoFactorEnabled",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "LockoutEndDateUtc",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "LockoutEndDateUtc",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "LockoutEnabled",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "LockoutEnabled",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "AccessFailedCount",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AccessFailedCount",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UserName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserName",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblApplication"
+						},
+						"destination": {
+							"table": "tblApplication"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ApplicationID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ApplicationID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ApplicationName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ApplicationName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RegistrationID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblAppointment"
+						},
+						"destination": {
+							"table": "tblAppointment"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "AppointmentID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AppointmentID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "StartDate",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "StartDate",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EndDate",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EndDate",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "StartTime",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "StartTime",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EndTime",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EndTime",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Venue",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Venue",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "HomeBuilderUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "HomeBuilderUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TraneeUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "TraneeUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AppointmentStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AppointmentStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AppointmentTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AppointmentTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SubsidyMethodID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "SubsidyMethodID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "BuildingTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BuildingTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ProvinceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProvinceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "OfficeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "OfficeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ReserverdSlotID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ReserverdSlotID",
+											"type": "Int32"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblAssignedApplication"
+						},
+						"destination": {
+							"table": "tblAssignedApplication"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "AsignedApp",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AsignedApp",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ApplicantUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ApplicantUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AssignedConcultantUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "AssignedConcultantUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ReassignAssignedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ReassignAssignedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ModifiedDate",
+											"type": "DateTime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblAttachment"
+						},
+						"destination": {
+							"table": "tblAttachment"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "DocumentID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DocumentID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DocumentName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "DocumentName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DocumentContent",
+											"type": "Byte[]",
+											"physicalType": "varbinary"
+										},
+										"sink": {
+											"name": "DocumentContent",
+											"type": "Byte[]"
+										}
+									},
+									{
+										"source": {
+											"name": "UserId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MimeType",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MimeType",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ActionDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ActionDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ContentLength",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ContentLength",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "fileName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "fileName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblBankingDetails"
+						},
+						"destination": {
+							"table": "tblBankingDetails"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "BankDetailsID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BankDetailsID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AnswerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AnswerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "BankBranchID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BankBranchID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "BankID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BankID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AccountTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AccountTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ParentalCompanyName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ParentalCompanyName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ContactPerson",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ContactPerson",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ParentalCompanyRegistrationNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ParentalCompanyRegistrationNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MobileNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MobileNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LandLineNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "LandLineNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RegisteredAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RegisteredAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Code",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "BankName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "BankName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AccountName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "AccountName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "BranchName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "BranchName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TypeOfAccount",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "TypeOfAccount",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AccountNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "AccountNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ActionType",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ActionType",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ActionBy",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ActionBy",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateTime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblCertificate"
+						},
+						"destination": {
+							"table": "tblCertificate"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "CertificateID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CertificateID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CertificateNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CertificateNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CompanyName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NhbrcReg",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "NhbrcReg",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UnitsToBuild",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "UnitsToBuild",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DateIssued",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateIssued",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ExpireDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ExpireDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ApproverUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ApproverUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DateCreated",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "DateCreated",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "IsCertificateRenewalReminderSent",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsCertificateRenewalReminderSent",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "ReminderSentDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ReminderSentDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsCertificateActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsCertificateActive",
+											"type": "Boolean"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblCompanyDetails"
+						},
+						"destination": {
+							"table": "tblCompanyDetails"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EntityId",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "EntityId",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ProfileID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProfileID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "LegalTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "LegalTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "BusinessAreaID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BusinessAreaID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UnitToBuildID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "UnitToBuildID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "HDIStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "HDIStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TitleID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TitleID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "BuildingID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "BuildingID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ContractorID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ContractorID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TechManagerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechManagerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusUpliftment",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "StatusUpliftment",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AnswerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AnswerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ProvinceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProvinceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "OfficeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "OfficeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CompanyName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TradingName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "TradingName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CIPCRegNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CIPCRegNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "Date",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "NoOfEmployees",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "NoOfEmployees",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PhysicalAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PhysicalAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PostalAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Code",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PhoneNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PhoneNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MobileNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MobileNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmailAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EmailAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "StatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "NhbrcReg",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "NhbrcReg",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Surburb",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Surburb",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CapturedDate",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "CapturedDate",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "sameAddres",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "sameAddres",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "SuburbID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "SuburbID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ReferenceNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ReferenceNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DateNotCompleted",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "DateNotCompleted",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "Answer2ID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "Answer2ID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ProvinceCompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProvinceCompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "MunicipalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "MunicipalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "OwnerName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "OwnerName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PartnerName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PartnerName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PhysicalCode",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PhysicalCode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TrustNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "TrustNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FaxNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "FaxNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsOpenedByOfficial",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsOpenedByOfficial",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsOpenedByOfficialDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "IsOpenedByOfficialDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsOpenedByOfficialUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "IsOpenedByOfficialUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsDueToEscalate",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsDueToEscalate",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsDueReassign",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsDueReassign",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsRenewal",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsRenewal",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "SubmissionsDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "SubmissionsDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "CIPCStatus",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CIPCStatus",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PassportNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PassportNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IdNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "IdNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ModifiedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "EscalateTo",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "EscalateTo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsTechManagerChanged",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "IsTechManagerChanged",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AcknowlwdgeCodeOfConduct",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "AcknowlwdgeCodeOfConduct",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationComplete",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "RegistrationComplete",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CancelledID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CancelledID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsDueRenewal",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsDueRenewal",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CancelledDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CancelledDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "AfriGIS_SuburbID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AfriGIS_SuburbID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DistrictMunicipalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DistrictMunicipalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "LocalMunicipalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "LocalMunicipalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalAddressProvinceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "PostalAddressProvinceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalDistrictMunicipalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "PostalDistrictMunicipalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalLocalMunicipalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "PostalLocalMunicipalityID",
+											"type": "Int32"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblCompanyTestResults"
+						},
+						"destination": {
+							"table": "tblCompanyTestResults"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "CompanyTestResultsID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyTestResultsID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TestResultID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TestResultID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "HomeBuilderUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "HomeBuilderUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CSCUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CSCUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TechnicalAssResults",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechnicalAssResults",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "NoOfAttempts",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "NoOfAttempts",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblDeclaration"
+						},
+						"destination": {
+							"table": "tblDeclaration"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "DeclarationID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DeclarationID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "FullName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "FullName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Position",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Position",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "Date",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "FullNameSurname",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "FullNameSurname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyRepresentetive",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CompanyRepresentetive",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CIPCNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CIPCNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "StatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblDirectorDetails"
+						},
+						"destination": {
+							"table": "tblDirectorDetails"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "DirectorID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DirectorID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TitleID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TitleID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TechID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Initials",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Initials",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Surname",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Surname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IDNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "IDNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "GenderID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "GenderID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Shareholding",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Shareholding",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Qualifications",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Qualifications",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Experience",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Experience",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AnswerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AnswerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Company",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Company",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NationalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "NationalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PassportNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PassportNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Relationship",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Relationship",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ExpireDate",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "ExpireDate",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "WorkPermit",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "WorkPermit",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CountryID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CountryID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TypeOfIdentification",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "TypeOfIdentification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IdentificationID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "IdentificationID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "RaceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RaceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DirectorIdNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "DirectorIdNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SeniorID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "SeniorID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Position",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Position",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PostalAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Code",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MobileNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MobileNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LandNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "LandNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmailAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EmailAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DevelopID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DevelopID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PernamentRes",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PernamentRes",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RefugeeID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RefugeeID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PermanetResID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "PermanetResID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "RegRejectedID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RegRejectedID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DirectorLinkID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DirectorLinkID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DirectorRaceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "DirectorRaceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AsylumSeeker",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "AsylumSeeker",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RejectedCompany",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RejectedCompany",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TechnicalDetailID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechnicalDetailID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SuburbID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "SuburbID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DirectorStatusDescID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "DirectorStatusDescID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TechManagerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechManagerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AfriGIS_SuburbID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AfriGIS_SuburbID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DirectorTypeCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "DirectorTypeCode",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblInvoice"
+						},
+						"destination": {
+							"table": "tblInvoice"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "InvoiveID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "InvoiveID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "InvoiceName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "InvoiceName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "InvoiveNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "InvoiveNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "BuilderRegNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "BuilderRegNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RegFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "RegFee",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "ManualGuideFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "ManualGuideFee",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "TotalRegFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "TotalRegFee",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "AnnualFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "AnnualFee",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "TotalAnnualFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "TotalAnnualFee",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "DateCreated",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateCreated",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "PaymentDate",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "PaymentDate",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "numberOfYears",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "numberOfYears",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsOnlinePayment",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsOnlinePayment",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsPaymentReminderSent",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsPaymentReminderSent",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "PaymentReminderSentDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "PaymentReminderSentDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsTraningRiminderSent",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsTraningRiminderSent",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsTrainingReminderSentDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "IsTrainingReminderSentDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsTechnicalRiminderSent",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsTechnicalRiminderSent",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsTechnicalRiminderSentDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "IsTechnicalRiminderSentDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "StatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AdminFee",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "AdminFee",
+											"type": "Decimal"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblOtp"
+						},
+						"destination": {
+							"table": "tblOtp"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "OtpID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "OtpID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "cellphone",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "cellphone",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ExpiryDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ExpiryDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "UserId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Otp",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "Otp",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblProfile"
+						},
+						"destination": {
+							"table": "tblProfile"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProfileID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProfileID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TitleID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TitleID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IDNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "IDNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FirstName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "FirstName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LastName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "LastName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CellPhone",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CellPhone",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmailAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EmailAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Position",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Position",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PassportNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PassportNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NationalityID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "NationalityID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "DateCreated",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateCreated",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "DateModified",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateModified",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "Password",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "Password",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "lastPasswordChangedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "lastPasswordChangedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsPasswordReminderSent",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsPasswordReminderSent",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblReservedSlot"
+						},
+						"destination": {
+							"table": "tblReservedSlot"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ReserverdSlotID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ReserverdSlotID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "HomeBuilderUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "HomeBuilderUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TimeSlotID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TimeSlotID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblSAPCompanyDetailExport"
+						},
+						"destination": {
+							"table": "tblSAPCompanyDetailExport"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "SAPCompanyDetailExportID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "SAPCompanyDetailExportID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SAPCompanyDetailExportGUID",
+											"type": "Guid",
+											"physicalType": "uniqueidentifier"
+										},
+										"sink": {
+											"name": "SAPCompanyDetailExportGUID",
+											"type": "Guid"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "MetaData",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MetaData",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsRegistrationExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsRegistrationExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsRenewalExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsRenewalExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsMembershipExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsMembershipExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsRegistrationApprovedExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsRegistrationApprovedExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsPaymentGatewayExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsPaymentGatewayExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationPaymentStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RegistrationPaymentStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalPaymentStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RenewalPaymentStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "MembershipPaymentStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "MembershipPaymentStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationApprovedStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "RegistrationApprovedStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationExportDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "RegistrationExportDateTime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalExportDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "RenewalExportDateTime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "MembershipExportDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "MembershipExportDateTime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationApprovedExportDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "RegistrationApprovedExportDateTime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationAmountPaid",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "RegistrationAmountPaid",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalAmountPaid",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "RenewalAmountPaid",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "MembershipAmountPaid",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "MembershipAmountPaid",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationProFormaInvoiceNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RegistrationProFormaInvoiceNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MembershipProFormaInvoiceNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MembershipProFormaInvoiceNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalProFormaInvoiceNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RenewalProFormaInvoiceNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationApprovedProFormaInvoiceNo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RegistrationApprovedProFormaInvoiceNo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalProvinceOffice",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RenewalProvinceOffice",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RenewalNumberOfYears",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "RenewalNumberOfYears",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RegistrationApprovedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "RegistrationApprovedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "DateCreated",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateCreated",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "DateModified",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "DateModified",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "BankMessage",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "BankMessage",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PaymentStatus",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "PaymentStatus",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Amount",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "Amount",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "ProFormaInvoiceP",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ProFormaInvoiceP",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsBuilderUpdateExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsBuilderUpdateExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "BuilderUpdateExportDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "BuilderUpdateExportDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsCancellationExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsCancellationExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "ProFormaInvoiceCancellation",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ProFormaInvoiceCancellation",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CancellationExportDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CancellationExportDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "CancellationStatus",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CancellationStatus",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusUpliftmentExportDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "StatusUpliftmentExportDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsStatusUpliftmentExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsStatusUpliftmentExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "AdminFeeExportDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "AdminFeeExportDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsAdminFeeExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsAdminFeeExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "ProFormaInvoiceAdminFee",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "ProFormaInvoiceAdminFee",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AdminFeeAmount",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 18
+										},
+										"sink": {
+											"name": "AdminFeeAmount",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "IsServiceOrderCreExport",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsServiceOrderCreExport",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "IsBuilderUpdateResend",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsBuilderUpdateResend",
+											"type": "Boolean"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblTechnicalManagerDetails"
+						},
+						"destination": {
+							"table": "tblTechnicalManagerDetails"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "TechnicalManagerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechnicalManagerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "AnswerID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AnswerID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IDNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "IDNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TitleID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TitleID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Initials",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Initials",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Surname",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Surname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "GenderID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "GenderID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Qulification",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Qulification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Experience",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Experience",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MobileNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "MobileNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LandNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "LandNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmailAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EmailAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalAddress",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PostalAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Code",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PostalCode",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "PostalCode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Position",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Position",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SuburbID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "SuburbID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TechnicalDetailID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TechnicalDetailID",
+											"type": "Int32"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblTestAttachments"
+						},
+						"destination": {
+							"table": "tblTestAttachments"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "AttachmentID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "AttachmentID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CompanyID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "CompanyID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TestScriptTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TestScriptTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "sFileName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "sFileName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FileData",
+											"type": "Byte[]",
+											"physicalType": "varbinary"
+										},
+										"sink": {
+											"name": "FileData",
+											"type": "Byte[]"
+										}
+									},
+									{
+										"source": {
+											"name": "contentType",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "contentType",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreateOn",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreateOn",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedOn",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "ModifiedOn",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "CreatedByUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "CreatedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedByUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "ModifiedByUserID",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "tblTimeslot"
+						},
+						"destination": {
+							"table": "tblTimeslot"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "TimeslotID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TimeslotID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ProvinceID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "ProvinceID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "OfficeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "OfficeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "StartDate",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "StartDate",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EndDate",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EndDate",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "StartTime",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "StartTime",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EndTime",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "EndTime",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Venue",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Venue",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TimeSlotStatusID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TimeSlotStatusID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TrainerUserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "TrainerUserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TimeSlotTypeID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "TimeSlotTypeID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "IsActive",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "IsActive",
+											"type": "Boolean"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T04:20:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

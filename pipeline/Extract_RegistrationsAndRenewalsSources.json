@@ -1,0 +1,254 @@
+{
+	"name": "Extract_RegistrationsAndRenewalsSources",
+	"properties": {
+		"activities": [
+			{
+				"name": "ExtractDSTables",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "ClearLanding",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "ExtracRegistrationAndRenewalsData",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "landing/digitalservices/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDSRegistrationAndRenewals",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationRegistrationsAndRenewals",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "ClearLanding",
+				"type": "Delete",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "landing_digitalservices_delimeted_folder",
+						"type": "DatasetReference"
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"wildcardFileName": "*.txt",
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "AspNetUsers"
+						},
+						"destination": {
+							"fileName": "dboAspNetUsers.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblAppointment"
+						},
+						"destination": {
+							"fileName": "dbotblAppointment.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblAttachment"
+						},
+						"destination": {
+							"fileName": "dbotblAttachment.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblBankingDetails"
+						},
+						"destination": {
+							"fileName": "dbotblBankingDetails.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblCertificate"
+						},
+						"destination": {
+							"fileName": "dbotblCertificate.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblCompanyDetails"
+						},
+						"destination": {
+							"fileName": "dbotblCompanyDetails.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblCompanyTestResults"
+						},
+						"destination": {
+							"fileName": "dbotblCompanyTestResults.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblInvoice"
+						},
+						"destination": {
+							"fileName": "dbotblInvoice.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblOtp"
+						},
+						"destination": {
+							"fileName": "dbotblOtp.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblProfile"
+						},
+						"destination": {
+							"fileName": "dbotblProfile.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblReservedSlot"
+						},
+						"destination": {
+							"fileName": "dbotblReservedSlot.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblSAPCompanyDetailExport"
+						},
+						"destination": {
+							"fileName": "dbotblSAPCompanyDetailExport.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblTechnicalManagerDetails"
+						},
+						"destination": {
+							"fileName": "dbotblTechnicalManagerDetails.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblTestAttachments"
+						},
+						"destination": {
+							"fileName": "dbotblTestAttachments.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "tblTimeslot"
+						},
+						"destination": {
+							"fileName": "dbotblTimeslot.txt"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "DigitalServices/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T07:49:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

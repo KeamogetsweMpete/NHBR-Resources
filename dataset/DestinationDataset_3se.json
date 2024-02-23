@@ -1,0 +1,28 @@
+{
+	"name": "DestinationDataset_3se",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsdatamgmtazrblb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Q_BUT000.txt",
+				"folderPath": "sap",
+				"container": "landing"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

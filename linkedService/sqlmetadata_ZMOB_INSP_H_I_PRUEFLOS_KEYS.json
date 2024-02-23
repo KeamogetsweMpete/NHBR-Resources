@@ -1,0 +1,16 @@
+{
+	"name": "sqlmetadata_ZMOB_INSP_H_I_PRUEFLOS_KEYS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=sapmetadata.database.windows.net;initial catalog=sapmetadata;user id=NHBRC",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5NDc0ZjgxMy1jODQyLTQzYWEtYmRkZS05OGY4ZTMxOGUyNWUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IntgRtimedatamanagement",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

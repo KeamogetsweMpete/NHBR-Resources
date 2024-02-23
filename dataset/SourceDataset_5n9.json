@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_5n9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPQA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "DD03M"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

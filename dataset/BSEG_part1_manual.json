@@ -1,0 +1,27 @@
+{
+	"name": "BSEG_part1_manual",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsdatamgmtazrblb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "sap/TestBusinessDataRead",
+				"container": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

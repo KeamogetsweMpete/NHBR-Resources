@@ -1,0 +1,514 @@
+{
+	"name": "ExtractSAPProdTables2mUnder",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_mzj",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Copy_mzj",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": true,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_mzj",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_mzj",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "ZAP_APPROVER"
+						},
+						"destination": {
+							"table": "ZAP_APPROVER"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZAP_GL_APPROVER"
+						},
+						"destination": {
+							"table": "ZAP_GL_APPROVER"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZBUT000_BC"
+						},
+						"destination": {
+							"table": "ZBUT000_BC"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZBUT000_BN"
+						},
+						"destination": {
+							"table": "ZBUT000_BN"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCCPERNRS"
+						},
+						"destination": {
+							"table": "ZCCPERNRS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_ADDRESS"
+						},
+						"destination": {
+							"table": "ZCRM_ADDRESS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_AREA"
+						},
+						"destination": {
+							"table": "ZCRM_AREA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_DISTRICT"
+						},
+						"destination": {
+							"table": "ZCRM_DISTRICT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_MUNCIPALITY"
+						},
+						"destination": {
+							"table": "ZCRM_MUNCIPALITY"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_PAYMENT"
+						},
+						"destination": {
+							"table": "ZCRM_PAYMENT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZCRM_TOWNSHIP"
+						},
+						"destination": {
+							"table": "ZCRM_TOWNSHIP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDIG_SERV_LINK"
+						},
+						"destination": {
+							"table": "ZDIG_SERV_LINK"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDM_MATLOAD"
+						},
+						"destination": {
+							"table": "ZDM_MATLOAD"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDM_PS_ACTVITY"
+						},
+						"destination": {
+							"table": "ZDM_PS_ACTVITY"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDM_PS_HEADER"
+						},
+						"destination": {
+							"table": "ZDM_PS_HEADER"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDM_PS_WBS"
+						},
+						"destination": {
+							"table": "ZDM_PS_WBS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDS_FNB_NRLEVEL"
+						},
+						"destination": {
+							"table": "ZDS_FNB_NRLEVEL"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZDS_PAYAMT_UPD"
+						},
+						"destination": {
+							"table": "ZDS_PAYAMT_UPD"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZECM_DOC_MAIL"
+						},
+						"destination": {
+							"table": "ZECM_DOC_MAIL"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZECM_DOC_MAIL_2"
+						},
+						"destination": {
+							"table": "ZECM_DOC_MAIL_2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZECM_LINK"
+						},
+						"destination": {
+							"table": "ZECM_LINK"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZEFT_DATA"
+						},
+						"destination": {
+							"table": "ZEFT_DATA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZEFTDATA"
+						},
+						"destination": {
+							"table": "ZEFTDATA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZEMAILDISTR"
+						},
+						"destination": {
+							"table": "ZEMAILDISTR"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZFBCJ_APPROVER"
+						},
+						"destination": {
+							"table": "ZFBCJ_APPROVER"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZFI_ADMIN"
+						},
+						"destination": {
+							"table": "ZFI_ADMIN"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZFI_BVRKO"
+						},
+						"destination": {
+							"table": "ZFI_BVRKO"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZFI_REPORT"
+						},
+						"destination": {
+							"table": "ZFI_REPORT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_T023_100"
+						},
+						"destination": {
+							"table": "ZMM_T023_100"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_T023_200"
+						},
+						"destination": {
+							"table": "ZMM_T023_200"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_T023_400"
+						},
+						"destination": {
+							"table": "ZMM_T023_400"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_VEN_COMM"
+						},
+						"destination": {
+							"table": "ZMM_VEN_COMM"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_VEN_COMM_01"
+						},
+						"destination": {
+							"table": "ZMM_VEN_COMM_01"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_VEN_COMM_02"
+						},
+						"destination": {
+							"table": "ZMM_VEN_COMM_02"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMM_VEN_COMM_03"
+						},
+						"destination": {
+							"table": "ZMM_VEN_COMM_03"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_INSP_A_O"
+						},
+						"destination": {
+							"table": "ZMOB_INSP_A_O"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_INSP_D_O"
+						},
+						"destination": {
+							"table": "ZMOB_INSP_D_O"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_INSP_N_NUM"
+						},
+						"destination": {
+							"table": "ZMOB_INSP_N_NUM"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_INSP_U_I"
+						},
+						"destination": {
+							"table": "ZMOB_INSP_U_I"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_INSPECTOR"
+						},
+						"destination": {
+							"table": "ZMOB_INSPECTOR"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZMOB_OPENTXT_SRV"
+						},
+						"destination": {
+							"table": "ZMOB_OPENTXT_SRV"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_ACT_TXT"
+						},
+						"destination": {
+							"table": "ZPPM_ACT_TXT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_BAPIRET2"
+						},
+						"destination": {
+							"table": "ZPPM_BAPIRET2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_PORTFOLIO"
+						},
+						"destination": {
+							"table": "ZPPM_PORTFOLIO"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_PROJ_TEMP"
+						},
+						"destination": {
+							"table": "ZPPM_PROJ_TEMP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_QUANTUM"
+						},
+						"destination": {
+							"table": "ZPPM_QUANTUM"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_RESULT"
+						},
+						"destination": {
+							"table": "ZPPM_RESULT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPPM_TOWNSHIP"
+						},
+						"destination": {
+							"table": "ZPPM_TOWNSHIP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPR_PLANT_CO_CEN"
+						},
+						"destination": {
+							"table": "ZPR_PLANT_CO_CEN"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZPS_ENROLMENTS"
+						},
+						"destination": {
+							"table": "ZPS_ENROLMENTS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZSD_DIGITAL_UPD"
+						},
+						"destination": {
+							"table": "ZSD_DIGITAL_UPD"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZSD_FNB_NRLEVEL"
+						},
+						"destination": {
+							"table": "ZSD_FNB_NRLEVEL"
+						}
+					},
+					{
+						"source": {
+							"tableName": "ZSD_INVOICE"
+						},
+						"destination": {
+							"table": "ZSD_INVOICE"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

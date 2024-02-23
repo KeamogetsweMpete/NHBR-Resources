@@ -1,0 +1,124 @@
+{
+	"name": "ExtractDDO3TToSapMetadata",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_tb6",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "DD03T"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.DD03T"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "TABNAME",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TABNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DDLANGUAGE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "DDLANGUAGE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AS4LOCAL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "AS4LOCAL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIELDNAME",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FIELDNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DDTEXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "DDTEXT",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_tb6",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_tb6",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T04:20:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

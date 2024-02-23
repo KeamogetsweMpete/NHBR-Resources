@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_uo6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ZMOB_INSP_H_I"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

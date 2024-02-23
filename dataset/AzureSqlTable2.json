@@ -1,0 +1,394 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRUEFLOS_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TIMESTAMP_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRUEFLOS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TIMESTAMP",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ART",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ART_TXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PASTRTERM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PAENDTERM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "STATUS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "STATUS_TEXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ENROL_DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CONTACT_TEL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COMMENT_TXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_CODE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_TEXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BUILDER_NUMBER",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BUILDER_REG_NO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BUILDER_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_UNIT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_STAND",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_TOWN",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_TOWN_EXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_PROVINCE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BLOCK",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_FLOOR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SELLING_PRICE",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "ZZ_ENROL_FEE",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "ZZ_EST_START",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_EST_COMPLETE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_EST_OCCUPATION",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_ENROL_METHOD",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_AREA",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_REP_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_CONTRACT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "E_MAIL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_EF003_SIGN_DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_STOREYS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BUILDING_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BUILD_SYSTEM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SUBSIDY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_DOLOMITE_CLASS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SOIL_STD_CLASS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_COMP_PERSON",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BAR_CODE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_COMP_SIGN_DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_DEVELOP_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_DEVELOP_PHASE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SERV_ORDER_NUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SERV_ORDER_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_ENROL_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_COMMENTS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_NUM_UNITS_ENROL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_ACTIVITY_NUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_UNIT_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SALES_ORG",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_DIST_CHAN",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_DIVISION",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SALES_OFFICE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_UPFRONT_PAYMENT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_OBJECT_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SALESORDER_NUM1",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_SALESORDER_NUM2",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_BP_SOLD_TO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_PORTION_NUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_WBS_ELEMENT_NUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_TRAINING_MAN_REQ",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_CATEGORY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_EXT_REFERENCE_NUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_WBS_INTERNAL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZZ_WBS_EXTERNAL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_GPSY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_GPSX",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_PHASE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_FLOOR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_PROVINCE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_PARENTNO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_PORTION",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_OFFICE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_OFFICE_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_ASSIGNED",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_ASSIGNED_ON",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_PROPERTY_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_STATUS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_STRUCT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_SCHEDULE_DATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_ACTUAL_START",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_ACTUAL_END",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_STREET_ADDRESS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_MILEAGE",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PRC_LEVEL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PROCESSED",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ZMOB_INSP_H_I_LoadedFromFiles"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

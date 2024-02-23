@@ -1,0 +1,28 @@
+{
+	"name": "DestinationDataset_ywr",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsdatamgmtazrblb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "BDES_part1_priKeys",
+				"folderPath": "sap/TestBusinessDataRead",
+				"container": "landing"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

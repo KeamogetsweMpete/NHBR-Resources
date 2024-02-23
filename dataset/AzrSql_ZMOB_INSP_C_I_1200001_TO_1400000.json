@@ -1,0 +1,109 @@
+{
+	"name": "AzrSql_ZMOB_INSP_C_I_1200001_TO_1400000",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRUEFLOS_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "VORNR_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MERKNR_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TIMESTAMP_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRUEFLOS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "VORNR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MERKNR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TIMESTAMP",
+				"type": "nvarchar"
+			},
+			{
+				"name": "KURZTEXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "STARTDATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ENDDATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RESULT_CODE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RESULT_TEXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_CODE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SCORE_WEIGHT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_TEXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_SEVERITY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_NUMBER",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NC_ISSUEDATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COMMENT_TXT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Z_STATUS",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ZMOB_INSP_C_I_1200001_TO_1400000"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

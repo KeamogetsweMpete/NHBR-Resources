@@ -1,0 +1,240 @@
+{
+	"name": "ExtractFromSAPProd_ZMOB_INSP_C_I_DB_COMPLETE",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachByKeyTo_ZMOB_INSP_C_I",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup PRUEFLOS_KEYS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup PRUEFLOS_KEYS').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy ZMOB_INSP_H_I from SAP",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"rfcTableOptions": {
+										"value": "@item().PRUEFLOS_KEY",
+										"type": "Expression"
+									},
+									"customRfcReadTableFunctionModule": "",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ZMOB_INSP_C_I",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "blbstrg_ZMOB_INSP_C_I_ByLot",
+									"type": "DatasetReference",
+									"parameters": {
+										"DestFileName": {
+											"value": "@item().FILENAME",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Update Metadata",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Copy ZMOB_INSP_H_I from SAP",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "azrsqldb_sapmetadata",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "@concat('update [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY]\n  set INDICATOR = ''Y'',\n        COMPLETED = getdate()\n    where  PRUEFLOS_KEY =', item().FILENAME)",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						},
+						{
+							"name": "Copy ZMOB_INSP_H_I from SAP_copy1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"rfcTableOptions": {
+										"value": "@item().PRUEFLOS_KEY",
+										"type": "Expression"
+									},
+									"customRfcReadTableFunctionModule": "",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ZMOB_INSP_C_I",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzrSql_ZMOB_INSP_C_I",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup PRUEFLOS_KEYS",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Prepare Metadata and Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzrSQL_vw_ZMOB_INSP_H_I_PRUEFLOS_KEYS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Prepare Metadata and Watermark",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "azrsqldb_sapmetadata",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "/*clear target table for the latest KEY*/\n delete from [dbo].[ZMOB_INSP_C_I]\n where PRUEFLOS_KEY = (select kys1.PRUEFLOS_KEY from [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY] kys1\n\t\t\t\t\t\twhere kys1.COMPLETED = (\n\t\t\t\t\t\t\t\t\t\t\t\tselect max(COMPLETED) from [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY] kys2\n\t\t\t\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t)\n\n/*reverse last successful load to resume loading*/\t\t\t\t\t\t\nupdate [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY] \nset INDICATOR = 'N',\n\tCOMPLETED = null\n where PRUEFLOS_KEY = (select kys1.PRUEFLOS_KEY from [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY] kys1\n\t\t\t\t\t\twhere kys1.COMPLETED = (\n\t\t\t\t\t\t\t\t\t\t\t\tselect max(COMPLETED) from [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY] kys2\n\t\t\t\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t)"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

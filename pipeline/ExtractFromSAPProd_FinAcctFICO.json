@@ -1,0 +1,174 @@
+{
+	"name": "ExtractFromSAPProd_FinAcctFICO",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_m8q",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_m8q",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_m8q",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_m8q",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "BKPF"
+						},
+						"destination": {
+							"table": "BKPF"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSAD"
+						},
+						"destination": {
+							"table": "BSAD"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSAK"
+						},
+						"destination": {
+							"table": "BSAK"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSAS"
+						},
+						"destination": {
+							"table": "BSAS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSEG"
+						},
+						"destination": {
+							"table": "BSEG"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSID"
+						},
+						"destination": {
+							"table": "BSID"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSIK"
+						},
+						"destination": {
+							"table": "BSIK"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSIP"
+						},
+						"destination": {
+							"table": "BSIP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BSIS"
+						},
+						"destination": {
+							"table": "BSIS"
+						}
+					},
+					{
+						"source": {
+							"tableName": "BVOR"
+						},
+						"destination": {
+							"table": "BVOR"
+						}
+					},
+					{
+						"source": {
+							"tableName": "PAYR"
+						},
+						"destination": {
+							"table": "PAYR"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

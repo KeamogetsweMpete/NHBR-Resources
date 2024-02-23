@@ -1,0 +1,20 @@
+{
+	"name": "SAP_CRM_PROD",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapTable",
+		"typeProperties": {
+			"clientId": "100",
+			"sncMode": false,
+			"userName": "Dataload6",
+			"server": "172.16.19.142",
+			"systemNumber": "00",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1ZWRhODE3MS0zNWNiLTQ0YjctOTNkYy03YmJmMzYxMmI5OWUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IntgRtimedatamanagement",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_0pn",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPQA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "BUT000"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

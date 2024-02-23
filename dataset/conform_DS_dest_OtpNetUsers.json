@@ -1,0 +1,21 @@
+{
+	"name": "conform_DS_dest_OtpNetUsers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsdatamgmtazrblb_azrintruntime",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "digitalservices",
+				"container": "conformance"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

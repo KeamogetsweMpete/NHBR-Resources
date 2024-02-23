@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_tb6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DD03T"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

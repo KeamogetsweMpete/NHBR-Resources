@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_0td",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPERP_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "BUT000"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

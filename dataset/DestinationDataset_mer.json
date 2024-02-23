@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_mer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "BUT000_ECC_PROD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

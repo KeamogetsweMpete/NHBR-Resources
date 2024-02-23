@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_5n9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DD03M"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

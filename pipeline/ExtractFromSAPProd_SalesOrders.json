@@ -1,0 +1,182 @@
+{
+	"name": "ExtractFromSAPProd_SalesOrders",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_oho",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_oho",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_oho",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_oho",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "VAKPA"
+						},
+						"destination": {
+							"table": "VAKPA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VAPMA"
+						},
+						"destination": {
+							"table": "VAPMA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBAK"
+						},
+						"destination": {
+							"table": "VBAK"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBAP"
+						},
+						"destination": {
+							"table": "VBAP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBBE"
+						},
+						"destination": {
+							"table": "VBBE"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBEH"
+						},
+						"destination": {
+							"table": "VBEH"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBEP"
+						},
+						"destination": {
+							"table": "VBEP"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBKD"
+						},
+						"destination": {
+							"table": "VBKD"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBLB"
+						},
+						"destination": {
+							"table": "VBLB"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VBPA"
+						},
+						"destination": {
+							"table": "VBPA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VEPVG"
+						},
+						"destination": {
+							"table": "VEPVG"
+						}
+					},
+					{
+						"source": {
+							"tableName": "VKDFS"
+						},
+						"destination": {
+							"table": "VKDFS"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

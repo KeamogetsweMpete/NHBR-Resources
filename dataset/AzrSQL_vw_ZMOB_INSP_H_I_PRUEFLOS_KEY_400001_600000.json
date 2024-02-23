@@ -1,0 +1,29 @@
+{
+	"name": "AzrSQL_vw_ZMOB_INSP_H_I_PRUEFLOS_KEY_400001_600000",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PRUEFLOS_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FILENAME",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "vw_ZMOB_INSP_H_I_PRUEFLOS_KEY_400001_600000"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

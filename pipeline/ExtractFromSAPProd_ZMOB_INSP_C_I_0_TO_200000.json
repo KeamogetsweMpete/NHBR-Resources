@@ -1,0 +1,178 @@
+{
+	"name": "ExtractFromSAPProd_ZMOB_INSP_C_I_0_TO_200000",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachByKeyTo_ZMOB_INSP_C_I",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup PRUEFLOS_KEYS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup PRUEFLOS_KEYS').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy ZMOB_INSP_H_I from SAP",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"rfcTableOptions": {
+										"value": "@item().PRUEFLOS_KEY",
+										"type": "Expression"
+									},
+									"customRfcReadTableFunctionModule": "",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ZMOB_INSP_C_I",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzrSql_ZMOB_INSP_C_I_0_TO_200000",
+									"type": "DatasetReference"
+								}
+							]
+						},
+						{
+							"name": "Update Metadata",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Copy ZMOB_INSP_H_I from SAP",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "azrsqldb_sapmetadata",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "@concat('update [dbo].[ZMOB_INSP_H_I_PRUEFLOS_KEY_0_200000]\n  set INDICATOR = ''Y'',\n        COMPLETED = getdate()\n    where  PRUEFLOS_KEY =', item().FILENAME)",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup PRUEFLOS_KEYS",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Prepare Metadata and Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzrSQL_vw_ZMOB_INSP_H_I_PRUEFLOS_KEY_0_200000",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Prepare Metadata and Watermark",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "azrsqldb_sapmetadata",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "exec [dbo].[sp_PrepareWaterMark_0_200000]"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

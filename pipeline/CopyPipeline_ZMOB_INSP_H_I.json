@@ -1,0 +1,67 @@
+{
+	"name": "CopyPipeline_ZMOB_INSP_H_I",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_wvv",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "ZMOB_INSP_H_I"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.ZMOB_INSP_H_I"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"rfcTableOptions": "",
+						"customRfcReadTableFunctionModule": "",
+						"partitionOption": "PartitionOnInt",
+						"partitionSettings": {
+							"partitionColumnName": "TIMESTAMP_KEY",
+							"partitionUpperBound": "20151231235959",
+							"partitionLowerBound": "20150101000000",
+							"maxPartitionsNumber": 2000
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_wvv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_wvv",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T04:20:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

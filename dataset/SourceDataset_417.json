@@ -1,0 +1,72 @@
+{
+	"name": "SourceDataset_417",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "digitalservicesqa",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Email",
+				"type": "nvarchar"
+			},
+			{
+				"name": "EmailConfirmed",
+				"type": "bit"
+			},
+			{
+				"name": "PasswordHash",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SecurityStamp",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PhoneNumber",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PhoneNumberConfirmed",
+				"type": "bit"
+			},
+			{
+				"name": "TwoFactorEnabled",
+				"type": "bit"
+			},
+			{
+				"name": "LockoutEndDateUtc",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LockoutEnabled",
+				"type": "bit"
+			},
+			{
+				"name": "AccessFailedCount",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UserName",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "AspNetUsers"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

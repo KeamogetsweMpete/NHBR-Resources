@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_krx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPERP_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "CRMD_ORDERADM_H"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

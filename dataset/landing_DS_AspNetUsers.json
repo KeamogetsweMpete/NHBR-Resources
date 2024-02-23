@@ -1,0 +1,30 @@
+{
+	"name": "landing_DS_AspNetUsers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsdatamgmtazrblb_azrintruntime",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "dboAspNetUsers.txt",
+				"folderPath": "digitalservices",
+				"container": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Id|Email|EmailConfirmed|PasswordHash|SecurityStamp|PhoneNumber|PhoneNumberConfirmed|TwoFactorEnabled|LockoutEndDateUtc|LockoutEnabled|AccessFailedCount|UserName",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

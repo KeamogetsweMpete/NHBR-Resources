@@ -1,0 +1,200 @@
+{
+	"name": "ExtractFromSAPProd_ZMOB_INSP_D_O",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_flo",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "ZMOB_INSP_D_O"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.ZMOB_INSP_D_O"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ART_KEY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ART_KEY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORNR_KEY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VORNR_KEY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MERKNR_KEY",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "MERKNR_KEY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NC_CODE_KEY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NC_CODE_KEY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ART",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ART",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VORNR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MERKNR",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "MERKNR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NC_CODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NC_CODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NC_TEXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NC_TEXT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NC_REFERENCE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NC_REFERENCE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_flo",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_flo",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

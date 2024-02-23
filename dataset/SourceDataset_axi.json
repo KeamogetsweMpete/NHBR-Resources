@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_axi",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPECCPROD",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "KONV"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

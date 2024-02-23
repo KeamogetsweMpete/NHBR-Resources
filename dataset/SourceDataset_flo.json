@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_flo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPECCPROD",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "ZMOB_INSP_D_O"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

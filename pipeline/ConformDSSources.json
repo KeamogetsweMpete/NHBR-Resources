@@ -1,0 +1,68 @@
+{
+	"name": "ConformDSSources",
+	"properties": {
+		"activities": [
+			{
+				"name": "df_AspNetUsers",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "AspNetUsers",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "df_CompanyDetails",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "df_AspNetUsers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_companydetails",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "DigitalServices/Conformance"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-16T08:54:02Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,9 @@
+{
+	"name": "adfdatamanagement2",
+	"location": "southafricanorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0607ce3e-69e0-4521-aeea-1a809948baf6",
+		"tenantId": "3fa2c7f2-3ceb-4b67-aec9-08d186f26abc"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "ZMOB_INSP_H_I_PRUEFLOS_KEYS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sqlmetadata_ZMOB_INSP_H_I_PRUEFLOS_KEYS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "PRUEFLOS_KEY",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "vw_ZMOB_INSP_H_I_PRUEFLOS_KEYS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

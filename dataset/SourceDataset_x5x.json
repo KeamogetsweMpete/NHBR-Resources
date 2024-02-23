@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_x5x",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPECCPROD",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "QALS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

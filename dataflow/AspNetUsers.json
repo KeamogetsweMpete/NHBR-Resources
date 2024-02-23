@@ -1,0 +1,42 @@
+{
+	"name": "AspNetUsers",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "landing_DS_AspNetUsers",
+						"type": "DatasetReference"
+					},
+					"name": "landingOTPUsers"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "conform_DS_dest_OtpNetUsers",
+						"type": "DatasetReference"
+					},
+					"name": "conformanceOTPNetUsers"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          {Id|Email|EmailConfirmed|PasswordHash|SecurityStamp|PhoneNumber|PhoneNumberConfirmed|TwoFactorEnabled|LockoutEndDateUtc|LockoutEnabled|AccessFailedCount|UserName} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> landingOTPUsers",
+				"landingOTPUsers sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['OtpAspUsers'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> conformanceOTPNetUsers"
+			]
+		}
+	}
+}

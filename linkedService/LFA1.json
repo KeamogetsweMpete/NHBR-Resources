@@ -1,0 +1,20 @@
+{
+	"name": "LFA1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapTable",
+		"typeProperties": {
+			"clientId": "100",
+			"sncMode": false,
+			"userName": "SIQHAMOM",
+			"server": "11.2.2.15",
+			"systemNumber": "00",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwZTkyMTI4Ni0yYTE3LTQ5OTMtYjIwYy0yYjgwYmM3OWQ0ZWIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IntgRtimedatamanagement",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

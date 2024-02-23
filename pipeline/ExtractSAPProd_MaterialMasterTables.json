@@ -1,0 +1,134 @@
+{
+	"name": "ExtractSAPProd_MaterialMasterTables",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_1kr",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_1kr",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SapTableSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_1kr",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_1kr",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "MAKT"
+						},
+						"destination": {
+							"table": "MAKT"
+						}
+					},
+					{
+						"source": {
+							"tableName": "MARA"
+						},
+						"destination": {
+							"table": "MARA"
+						}
+					},
+					{
+						"source": {
+							"tableName": "MARC"
+						},
+						"destination": {
+							"table": "MARC"
+						}
+					},
+					{
+						"source": {
+							"tableName": "MARM"
+						},
+						"destination": {
+							"table": "MARM"
+						}
+					},
+					{
+						"source": {
+							"tableName": "MBEW"
+						},
+						"destination": {
+							"table": "MBEW"
+						}
+					},
+					{
+						"source": {
+							"tableName": "MLAN"
+						},
+						"destination": {
+							"table": "MLAN"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "SAP/Landing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-14T07:10:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

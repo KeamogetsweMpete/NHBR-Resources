@@ -1,0 +1,16 @@
+{
+	"name": "azrsqldb_sapmetadata",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=sapmetadata.database.windows.net;initial catalog=sapmetadata;user id=NHBRC",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlODRhZjc1OC02YjQ4LTQxZmUtYTkwYi1iZGMzNTA3OTM4YzYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IntgRtimedatamanagement",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

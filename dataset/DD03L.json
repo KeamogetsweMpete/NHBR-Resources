@@ -1,0 +1,19 @@
+{
+	"name": "DD03L",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SAPQA",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "DD03L"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

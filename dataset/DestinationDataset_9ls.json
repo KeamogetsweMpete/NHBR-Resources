@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_9ls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "VBAP"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

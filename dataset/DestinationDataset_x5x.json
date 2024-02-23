@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_x5x",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azrsqldb_sapmetadata",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DiscoveryOfData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "QALS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
